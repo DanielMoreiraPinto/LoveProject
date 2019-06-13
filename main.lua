@@ -24,7 +24,16 @@ function love.load()
 	inimigo_largura = 30
 	inimigo_altura = 50
 
+	flechas = {}
+	flecha_x = 1000
+	flecha_y = 200
+	flecha_largura = 30
+	flecha_altura = 5
+	flecha_velocidadeY = 0
+	flecha_gravidade = -12
+
 	intervaloInimigo = 200
+	intervaloFlecha = 500
 end
 
 function love.update(dt)
@@ -57,6 +66,25 @@ function love.update(dt)
 			table.remove(inimigos, i)
 		end
 	end
+
+	--Criação e atualização das flechas, controle da frequência das flechas, trajetória parabólica das flechas
+	intervaloFlecha = intervaloFlecha - 1.5
+
+	if intervaloFlecha <= 0 then
+		intervaloFlecha = love.math.random(60, 255)
+		novaFlecha = {x = flecha_x, y = flecha_y, velocidadeY = flecha_velocidadeY}
+		table.insert(flechas, novaFlecha)
+	end
+
+	for i, flecha in ipairs(flechas) do
+		flecha.x = flecha.x - velocidade
+		flecha.y = flecha.y + flecha.velocidadeY * dt
+		flecha.velocidadeY = flecha.velocidadeY - flecha_gravidade
+		if flecha.x + flecha_largura < 0 or flecha.y > chao.y or
+			detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, flecha.x, flecha.y, flecha_largura, flecha_altura) then
+			table.remove(flechas, i)
+		end
+	end
 end
 
 function love.draw()
@@ -69,5 +97,10 @@ function love.draw()
 	for i, inimigo in ipairs(inimigos) do
 		love.graphics.setColor(0, 0, 1)
 		love.graphics.rectangle("fill", inimigo.x, inimigo.y, inimigo_largura, inimigo_altura)
+	end
+
+	for i, flecha in ipairs(flechas) do
+		love.graphics.setColor(0, 1, 0)
+		love.graphics.rectangle("fill", flecha.x, flecha.y, flecha_largura, flecha_altura)
 	end
 end
