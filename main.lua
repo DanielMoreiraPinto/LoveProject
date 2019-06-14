@@ -22,8 +22,9 @@ function love.load()
 	flechaJogador_x = jogador.largura / 2
 	flechaJogador_y = jogador.altura / 2
 	flechaJogador_largura = 30
-	flechaJogador_altura = 5
-	flechaJogador_velocidade = 800
+	flechaJogador_altura = 30
+	flechaJogador_velocidade = 1000
+	flechaJogador_velocidadeTiro = 60
 
 	inimigos = {}
 	inimigo_x = 1000
@@ -35,12 +36,13 @@ function love.load()
 	flechaInimigo_x = 1000
 	flechaInimigo_y = 200
 	flechaInimigo_largura = 30
-	flechaInimigo_altura = 5
+	flechaInimigo_altura = 30
 	flechaInimigo_velocidadeY = 0
 	flechaInimigo_gravidade = -12
 
 	intervaloInimigo = 200
 	intervaloFlechaInimigo = 500
+	intervaloFlechaJogador = flechaJogador_velocidadeTiro
 end
 
 function love.update(dt)
@@ -59,7 +61,10 @@ function love.update(dt)
 	end
 
 	--Criação e atualização das flechas do jogador, controle da movimentação e colisão dessas flechas
-	if love.mouse.isDown(1) then
+	intervaloFlechaJogador = intervaloFlechaJogador - 1.5
+
+	if love.mouse.isDown(1) and intervaloFlechaJogador <= 0 then
+		intervaloFlechaJogador = flechaJogador_velocidadeTiro
 		flechaJogador_x = flechaJogador_x + jogador.x
 		flechaJogador_y = flechaJogador_y + jogador.y
 		local posicaoMouseX, posicaoMouseY = love.mouse.getPosition()
