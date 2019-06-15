@@ -5,7 +5,7 @@ function inimigo_load()
 	inimigo_altura = inimigo_imagem:getHeight()
 	inimigo_x = tela_largura
 	inimigo_y = tela_altura - chao.altura - inimigo_altura
-	inimigoVelocidade = 15
+	inimigoVelocidade = 20
 
 	flechasInimigas = {}
 	flechaInimigo_x = 1000

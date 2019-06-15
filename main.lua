@@ -1,7 +1,7 @@
 require("src/mundo")
 require("src/jogador")
 require("src/inimigo")
-require("src/colisao")
+require("lib/colisao")
 
 function love.load()
 	tela_largura, tela_altura = love.graphics.getDimensions()

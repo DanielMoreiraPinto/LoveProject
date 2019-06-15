@@ -1,25 +1,35 @@
+require("lib/animacao")
+
 function jogador_load()
 	jogador = {}
-	jogador.largura = 70
-	jogador.altura = 50
+	jogador.imagem = love.graphics.newImage("assets/jogador.png")
+	--jogador.largura = jogador.imagem:getWidth()
+	--jogador.altura = jogador.imagem:getHeight()
+	jogador.largura = jogador.imagem:getWidth() / 4
+	jogador.altura = jogador.imagem:getHeight()
 	jogador.x = 30
 	jogador.y = tela_altura - chao.altura - jogador.altura
 	jogador.velocidadeY = 0
 	jogador.pulo = 800
 	jogador.gravidade = -40
 
+	--carregarAnimacao(jogador.imagem, 86*3, 64*3)
+	carregarAnimacao(jogador.imagem, jogador.largura, jogador.altura)
+
 	flechasJogador = {}
 	flechaJogador_largura = 30
 	flechaJogador_altura = 30
 	flechaJogador_x = jogador.largura/2
 	flechaJogador_y = jogador.altura/6
-	flechaJogador_velocidade = 1000
+	flechaJogador_velocidade = 1500
 	flechaJogador_velocidadeTiro = 60
 
 	intervaloFlechaJogador = flechaJogador_velocidadeTiro
 end
 
 function jogador_update(dt)
+	atualizarAnimacao(dt)
+
 	jogador.y = jogador.y + jogador.velocidadeY * dt
 
 	jogador.velocidadeY = jogador.velocidadeY - jogador.gravidade
@@ -72,7 +82,8 @@ end
 
 function jogador_draw()
 	--love.graphics.setColor(1, 0, 0)
-	love.graphics.rectangle("fill", jogador.x, jogador.y, jogador.largura, jogador.altura)
+	--love.graphics.rectangle("fill", jogador.x, jogador.y, jogador.largura, jogador.altura)
+	desenharAnimacao(jogador.x, jogador.y)
 
 	for i, flechaJogador in ipairs(flechasJogador) do
 		--love.graphics.setColor(1, 0, 1)
