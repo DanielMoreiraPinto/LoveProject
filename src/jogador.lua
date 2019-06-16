@@ -3,8 +3,6 @@ require("lib/animacao")
 function jogador_load()
 	jogador = {}
 	jogador.imagem = love.graphics.newImage("assets/jogador.png")
-	--jogador.largura = jogador.imagem:getWidth()
-	--jogador.altura = jogador.imagem:getHeight()
 	jogador.largura = jogador.imagem:getWidth() / 4
 	jogador.altura = jogador.imagem:getHeight()
 	jogador.x = 30
@@ -13,7 +11,6 @@ function jogador_load()
 	jogador.pulo = 800
 	jogador.gravidade = -40
 
-	--carregarAnimacao(jogador.imagem, 86*3, 64*3)
 	carregarAnimacao(jogador.imagem, jogador.largura, jogador.altura)
 
 	flechasJogador = {}
