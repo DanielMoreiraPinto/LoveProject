@@ -1,6 +1,6 @@
 function inimigo_load()
 	inimigos = {}
-	inimigo_imagem = love.graphics.newImage("assets/inimigo2.png")
+	inimigo_imagem = love.graphics.newImage("assets/inimigo.png")
 	inimigo_largura = inimigo_imagem:getWidth()
 	inimigo_altura = inimigo_imagem:getHeight()
 	inimigo_x = tela_largura
@@ -8,12 +8,13 @@ function inimigo_load()
 	inimigoVelocidade = 20
 
 	flechasInimigas = {}
+	flechaInimigo_imagem = love.graphics.newImage("assets/inimigo_flecha.png")
+	flechaInimigo_largura = flechaInimigo_imagem:getWidth()
+	flechaInimigo_altura = flechaInimigo_imagem:getHeight()
 	flechaInimigo_x = 1000
-	flechaInimigo_y = 200
-	flechaInimigo_largura = 30
-	flechaInimigo_altura = 30
+	flechaInimigo_y = 20
 	flechaInimigo_velocidadeY = 0
-	flechaInimigo_gravidade = -12
+	flechaInimigo_gravidade = -20
 	flechaInimigo_velocidade = 20
 
 	intervaloInimigo = 200
@@ -40,13 +41,14 @@ function inimigo_update(dt)
 
 	if intervaloFlechaInimigo <= 0 then
 		intervaloFlechaInimigo = love.math.random(60, 255)
-		novaFlechaInimigo = {x = flechaInimigo_x, y = flechaInimigo_y, velocidadeY = flechaInimigo_velocidadeY}
+		novaFlechaInimigo = {x = flechaInimigo_x, y = flechaInimigo_y, velocidadeY = flechaInimigo_velocidadeY, angulo = 0}
 		table.insert(flechasInimigas, novaFlechaInimigo)
 	end
 
 	for i, flechaInimigo in ipairs(flechasInimigas) do
 		flechaInimigo.x = flechaInimigo.x - flechaInimigo_velocidade
 		flechaInimigo.y = flechaInimigo.y + flechaInimigo.velocidadeY * dt
+		flechaInimigo.angulo = flechaInimigo.angulo - 0.01
 		flechaInimigo.velocidadeY = flechaInimigo.velocidadeY - flechaInimigo_gravidade
 		if flechaInimigo.x + flechaInimigo_largura < 0 or flechaInimigo.y > chao.y or
 			detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) then
@@ -57,13 +59,12 @@ end
 
 function inimigo_draw()
 	for i, inimigo in ipairs(inimigos) do
-		--love.graphics.setColor(0, 0, 1)
 		--love.graphics.rectangle("fill", inimigo.x, inimigo.y, inimigo_largura, inimigo_altura)
 		love.graphics.draw(inimigo_imagem, inimigo.x, inimigo.y, 0, 1, sx)
 	end
 
 	for i, flechaInimigo in ipairs(flechasInimigas) do
-		--love.graphics.setColor(0, 1, 0)
-		love.graphics.rectangle("fill", flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura)
+		--love.graphics.rectangle("fill", flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura)
+		love.graphics.draw(flechaInimigo_imagem, flechaInimigo.x, flechaInimigo.y, flechaInimigo.angulo, 1, sx)
 	end
 end
