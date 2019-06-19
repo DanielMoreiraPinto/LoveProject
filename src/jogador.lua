@@ -32,7 +32,8 @@ function jogador_update(dt)
 
 	jogador.velocidadeY = jogador.velocidadeY - jogador.gravidade
 
-	if detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, chao.x, chao.y, chao.largura, chao.altura) then
+	if detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, chao.x1, chao.y, chao.largura, chao.altura) or
+		detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, chao.x2, chao.y, chao.largura, chao.altura) then
 		jogador.velocidadeY = 0
 		jogador.y = chao.y - jogador.altura
 	end

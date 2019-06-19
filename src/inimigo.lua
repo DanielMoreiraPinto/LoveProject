@@ -5,7 +5,7 @@ function inimigo_load()
 	inimigo_altura = inimigo_imagem:getHeight()
 	inimigo_x = tela_largura
 	inimigo_y = tela_altura - chao.altura - inimigo_altura
-	inimigoVelocidade = 20
+	inimigoVelocidade = velocidadeIlusaoMundo
 
 	flechasInimigas = {}
 	flechaInimigo_imagem = love.graphics.newImage("assets/inimigo_flecha.png")
