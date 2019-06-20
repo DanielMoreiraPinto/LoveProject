@@ -1,32 +1,52 @@
 require("src/menu")
-require("src/mundo")
-require("src/jogador")
-require("src/inimigo")
-require("lib/colisao")
+require("src/jogo")
+require("src/fimDeJogo")
 
 function love.load()
 	tela_largura, tela_altura = love.graphics.getDimensions()
-	dsenvolvimento = true
+	
+	desenvolvimento = true
+	
 	modo = "menu"
-	menu_load()
+	
 	reload()
+	
+	musicaMenu = love.audio.newSource("assets/musica_menu.mp3", "stream")
+	musicaMenu:setLooping(true)
+	musicaJogo = love.audio.newSource("assets/musica_jogo.mp3", "stream")
+	musicaJogo:setLooping(true)
+
+	musicaMenu:play()
 end
 
 function love.update(dt)
 	if modo == "menu" then
 		menu_update(dt)
 	elseif modo == "jogo" then
-		mundo_update(dt)
-		jogador_update(dt)
-		inimigo_update(dt)
+		jogo_update(dt)
+	elseif modo == "fimDeJogo" then
+		fimDeJogo_update(dt)
 	end
 
-	if love.keyboard.isDown("return") then
+	if modo == "menu" and love.keyboard.isDown("return") then
+		menu_pause()
+		musicaMenu:pause()
+		musicaMenu:seek(0)
+		musicaJogo:play()
 		modo = "jogo"
 	end
-	if love.keyboard.isDown("escape") then
-		modo = "menu"
+	if modo ~= "menu" and love.keyboard.isDown("escape") then
+		musicaJogo:pause()
+		musicaJogo:seek(0)
+		musicaMenu:play()
+		modo = "menu"	
 		reload()
+	end
+
+	if not desenvolvimento and jogo_detectarFimDeJogo() then
+		musicaJogo:pause()
+		musicaJogo:seek(0)
+		modo = "fimDeJogo"
 	end
 end
 
@@ -34,14 +54,14 @@ function love.draw()
 	if modo == "menu" then
 		menu_draw()
 	elseif modo == "jogo" then
-		mundo_draw()
-		jogador_draw()
-		inimigo_draw()
+		jogo_draw()
+	elseif modo == "fimDeJogo" then
+		fimDeJogo_draw()
 	end
 end
 
 function reload()
-	mundo_load()
-	jogador_load()
-	inimigo_load()
+	menu_load()
+	jogo_load()
+	fimDeJogo_load()
 end
