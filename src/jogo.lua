@@ -19,10 +19,12 @@ function jogo_update(dt)
 		detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, chao.x2, chao.y, chao.largura, chao.altura) then
 		jogador.velocidadeY = 0
 		jogador.y = chao.y - jogador.altura
+		jogador.estado = "correndo"
 	end
 
 	if love.keyboard.isDown("space") and jogador.velocidadeY == 0 and (jogador.y + jogador.altura) >= chao.y then
 		jogador.velocidadeY = -jogador.pulo
+		jogador.estado = "pulando"
 	end
 
 	for i, flechaInimigo in ipairs(flechasInimigas) do

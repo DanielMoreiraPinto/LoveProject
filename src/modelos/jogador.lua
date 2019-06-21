@@ -1,15 +1,17 @@
 function jogador_load()
 	jogador = {}
-	jogador.imagem = love.graphics.newImage("assets/jogador.png")
-	jogador.largura = jogador.imagem:getWidth() / 4
-	jogador.altura = jogador.imagem:getHeight()
+	jogador.imagem_corrida = love.graphics.newImage("assets/jogador/corrida.png")
+	jogador.imagem_pulo = love.graphics.newImage("assets/jogador/pulo.png")
+	jogador.largura = jogador.imagem_corrida:getWidth() / 4
+	jogador.altura = jogador.imagem_corrida:getHeight()
 	jogador.x = 30
 	jogador.y = tela_altura - chao.altura - jogador.altura
 	jogador.velocidadeY = 0
 	jogador.pulo = 800
 	jogador.gravidade = -40
+	jogador.estado = "correndo"
 
-	carregarAnimacao(jogador.imagem, jogador.largura, jogador.altura)
+	carregarAnimacao(jogador.imagem_corrida, jogador.largura, jogador.altura)
 
 	flechasJogador = {}
 	flechaJogador_imagem = love.graphics.newImage("assets/jogador_flecha.png")
@@ -60,7 +62,11 @@ function jogador_update(dt)
 end
 
 function jogador_draw()
-	desenharAnimacao(jogador.x, jogador.y)
+	if jogador.estado == "correndo" then
+		desenharAnimacao(jogador.x, jogador.y)
+	else
+		love.graphics.draw(jogador.imagem_pulo, jogador.x, jogador.y, 0, 1, sx)
+	end
 
 	for i, flechaJogador in ipairs(flechasJogador) do
 		love.graphics.draw(flechaJogador_imagem, flechaJogador.x, flechaJogador.y, flechaJogador.angulo, 1, sx)
