@@ -15,14 +15,14 @@ function jogo_update(dt)
 	jogador_update(dt)
 	inimigo_update(dt)
 
-	if detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, chao.x1, chao.y, chao.largura, chao.altura) or
-		detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura, chao.x2, chao.y, chao.largura, chao.altura) then
+	if detectarColisao(jogador.x, jogador.y, jogador.base_largura, jogador.base_altura, chao.x1, chao.y, chao.largura, chao.altura) or
+		detectarColisao(jogador.x, jogador.y, jogador.base_largura, jogador.base_altura, chao.x2, chao.y, chao.largura, chao.altura) then
 		jogador.velocidadeY = 0
-		jogador.y = chao.y - jogador.altura
+		jogador.y = chao.y - jogador.base_altura
 		jogador.estado = "correndo"
 	end
 
-	if love.keyboard.isDown("space") and jogador.velocidadeY == 0 and (jogador.y + jogador.altura) >= chao.y then
+	if love.keyboard.isDown("space") and jogador.velocidadeY == 0 and (jogador.y + jogador.base_altura) >= chao.y then
 		jogador.velocidadeY = -jogador.pulo
 		jogador.estado = "pulando"
 	end
@@ -49,12 +49,12 @@ end
 
 function jogo_detectarFimDeJogo()
 	for i, flechaInimigo in ipairs(flechasInimigas) do
-		if detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura,
+		if detectarColisao(jogador.x, jogador.y, jogador.base_largura, jogador.base_altura,
 					flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) then return true end
 	end
 
 	for i, inimigo in ipairs(inimigos) do
-	if detectarColisao(jogador.x, jogador.y, jogador.largura, jogador.altura,
+	if detectarColisao(jogador.x, jogador.y, jogador.base_largura, jogador.base_altura,
 				inimigo.x, inimigo.y, inimigo_largura, inimigo_altura) then return true end
 	end
 
