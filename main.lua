@@ -5,7 +5,7 @@ require("src/fimDeJogo")
 function love.load()
 	tela_largura, tela_altura = love.graphics.getDimensions()
 	
-	desenvolvimento = true
+	desenvolvimento = false
 	
 	modo = "menu"
 	

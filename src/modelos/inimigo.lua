@@ -22,7 +22,7 @@ function inimigo_load()
 
 	--intervaloInimigo = 400
 	--intervaloFlechaInimigo = 800
-	intervaloInimigo = 100
+	intervaloInimigo = 20
 	intervaloFlechaInimigo = 100
 end
 
