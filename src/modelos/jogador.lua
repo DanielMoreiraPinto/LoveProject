@@ -15,6 +15,22 @@ function jogador_load()
 		jogador.topo.estado = "mirando"
 	jogador.x = 30
 	jogador.y = tela_altura - chao.altura - jogador.base.altura
+	jogador.hitbox = {}
+		jogador.hitbox.cavaloCorpo = {}
+			jogador.hitbox.cavaloCorpo.largura = 40*3
+			jogador.hitbox.cavaloCorpo.altura = 15*3
+			jogador.hitbox.cavaloCorpo.x = jogador.x+43
+			jogador.hitbox.cavaloCorpo.y = jogador.y+45
+		jogador.hitbox.cavaloCabeca = {}
+			jogador.hitbox.cavaloCabeca.largura = 15*3
+			jogador.hitbox.cavaloCabeca.altura = 6*3
+			jogador.hitbox.cavaloCabeca.x = jogador.x+163
+			jogador.hitbox.cavaloCabeca.y = jogador.y+20
+		jogador.hitbox.cavaleiro = {}
+			jogador.hitbox.cavaleiro.largura = 14*3
+			jogador.hitbox.cavaleiro.altura = 22*3
+			jogador.hitbox.cavaleiro.x = jogador.x+86
+			jogador.hitbox.cavaleiro.y = jogador.y-10
 	jogador.velocidadeY = 0
 	jogador.pulo = 800
 	jogador.gravidade = -40
@@ -37,12 +53,16 @@ function jogador_update(dt)
 	atualizarAnimacao(dt)
 	posicaoMouseX, posicaoMouseY = love.mouse.getPosition()
 
+	jogador.hitbox.cavaloCorpo.y = jogador.y+45
+	jogador.hitbox.cavaloCabeca.y = jogador.y+20
+	jogador.hitbox.cavaleiro.y = jogador.y-10
+
 	jogador.y = jogador.y + jogador.velocidadeY * dt
 	jogador.velocidadeY = jogador.velocidadeY - jogador.gravidade
 
-	local angulo_topoParaMouse = math.atan2((posicaoMouseY - jogador.y), (posicaoMouseX - jogador.x))
-	if math.cos(angulo_topoParaMouse) > 0 and angulo_topoParaMouse <= 0 then
-		jogador.topo.angulo = angulo_topoParaMouse
+	local anguloTopoParaMouse = math.atan2((posicaoMouseY - jogador.y), (posicaoMouseX - jogador.x))
+	if math.cos(anguloTopoParaMouse) > 0 and anguloTopoParaMouse <= 0 then
+		jogador.topo.angulo = anguloTopoParaMouse
 	end
 
 	intervaloFlechaJogador = intervaloFlechaJogador - 1.5

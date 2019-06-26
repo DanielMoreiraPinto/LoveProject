@@ -5,6 +5,9 @@ function inimigo_load()
 	inimigo_altura = inimigo_imagem:getHeight()
 	inimigo_x = tela_largura
 	inimigo_y = tela_altura - chao.altura - inimigo_altura
+	inimigo_hitbox_largura = 48*2
+	inimigo_hitbox_altura = 40*2
+	inimigo_hitbox_y = inimigo_y + 30
 	inimigoVelocidade = velocidadeIlusaoMundo
 
 	flechasInimigas = {}
@@ -13,12 +16,14 @@ function inimigo_load()
 	flechaInimigo_altura = flechaInimigo_imagem:getHeight()
 	flechaInimigo_x = 1000
 	flechaInimigo_y = 20
-	flechaInimigo_velocidadeY = 0
+	flechaInimigo_velocidadeY = 30
 	flechaInimigo_gravidade = -20
 	flechaInimigo_velocidade = 20
 
-	intervaloInimigo = 400
-	intervaloFlechaInimigo = 800
+	--intervaloInimigo = 400
+	--intervaloFlechaInimigo = 800
+	intervaloInimigo = 100
+	intervaloFlechaInimigo = 100
 end
 
 function inimigo_update(dt)
@@ -26,12 +31,13 @@ function inimigo_update(dt)
 	
 	if intervaloInimigo <= 0 then
 		intervaloInimigo = love.math.random(60, 255)
-		novoInimigo = {x = inimigo_x, y = inimigo_y}
+		novoInimigo = {x = inimigo_x, y = inimigo_y, hitbox_x = x, hitbox_y = inimigo_hitbox_y}
 		table.insert(inimigos, novoInimigo)
 	end
 
 	for i, inimigo in ipairs(inimigos) do
 		inimigo.x = inimigo.x - inimigoVelocidade
+		inimigo.hitbox_x = inimigo.x
 		if inimigo.x + inimigo_largura < 0 then
 			table.remove(inimigos, i)
 		end
