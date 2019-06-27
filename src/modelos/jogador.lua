@@ -9,6 +9,7 @@ function jogador_load()
 	jogador.topo = {}
 		jogador.topo.mira = love.graphics.newImage("assets/jogador/topo_mira.png")
 		jogador.topo.tiro = love.graphics.newImage("assets/jogador/topo_tiro.png")
+		jogador.topo.carga = love.graphics.newImage("assets/jogador/topo_carga.png")
 		jogador.topo.largura = jogador.topo.mira:getWidth()
 		jogador.topo.altura = jogador.topo.mira:getHeight()
 		jogador.topo.angulo = 0
@@ -34,6 +35,8 @@ function jogador_load()
 	jogador.velocidadeY = 0
 	jogador.pulo = 800
 	jogador.gravidade = -40
+	jogador.intervaloCarga = 0
+	jogador.duracaoCarga = 5
 
 	carregarAnimacao(jogador.base.corrida, jogador.base.largura, jogador.base.altura)
 
@@ -60,27 +63,42 @@ function jogador_update(dt)
 	jogador.y = jogador.y + jogador.velocidadeY * dt
 	jogador.velocidadeY = jogador.velocidadeY - jogador.gravidade
 
-	local anguloTopoParaMouse = math.atan2((posicaoMouseY - jogador.y), (posicaoMouseX - jogador.x))
-	if math.cos(anguloTopoParaMouse) > 0 and anguloTopoParaMouse <= 0 then
-		jogador.topo.angulo = anguloTopoParaMouse
+	intervaloFlechaJogador = intervaloFlechaJogador - 1.5
+	jogador.intervaloCarga = jogador.intervaloCarga - 1 * dt
+
+	if jogador.intervaloCarga <= 0 and love.keyboard.isDown("x") and jogador.topo.modo ~= "carga" then
+		jogador.topo.estado = "carga"
 	end
 
-	intervaloFlechaJogador = intervaloFlechaJogador - 1.5
+	if jogador.topo.estado == "carga" then
+		jogador.duracaoCarga = jogador.duracaoCarga - 1 * dt
+		
+		if jogador.duracaoCarga <= 0 then
+			jogador.intervaloCarga = 5
+			jogador.duracaoCarga = 5
+			jogador.topo.estado = "mirando"
+		end
+	else
+		local anguloTopoParaMouse = math.atan2((posicaoMouseY - jogador.y), (posicaoMouseX - jogador.x))
+		if math.cos(anguloTopoParaMouse) > 0 and anguloTopoParaMouse <= 0 then
+			jogador.topo.angulo = anguloTopoParaMouse
+		end
 
-	if intervaloFlechaJogador <= 0 then
-		jogador.topo.estado = "mirando"
-		if love.mouse.isDown(1) then
-			jogador.topo.estado = "atirando"
-			intervaloFlechaJogador = flechaJogador_velocidadeTiro
-			flechaJogador_x = flechaJogador_x + jogador.x
-			flechaJogador_y = flechaJogador_y + jogador.y
+		if intervaloFlechaJogador <= 0 then
+			jogador.topo.estado = "mirando"
+			if love.mouse.isDown(1) then
+				jogador.topo.estado = "atirando"
+				intervaloFlechaJogador = flechaJogador_velocidadeTiro
+				flechaJogador_x = flechaJogador_x + jogador.x
+				flechaJogador_y = flechaJogador_y + jogador.y
 
-			local anguloFlecha = jogador.topo.angulo
-			local novaFlechaJogador = {x = flechaJogador_x, y = flechaJogador_y, angulo = anguloFlecha}
-			table.insert(flechasJogador, novaFlechaJogador)
+				local anguloFlecha = jogador.topo.angulo
+				local novaFlechaJogador = {x = flechaJogador_x, y = flechaJogador_y, angulo = anguloFlecha}
+				table.insert(flechasJogador, novaFlechaJogador)
 
-			flechaJogador_x = flechaJogador_x - jogador.x
-			flechaJogador_y = flechaJogador_y - jogador.y
+				flechaJogador_x = flechaJogador_x - jogador.x
+				flechaJogador_y = flechaJogador_y - jogador.y
+			end
 		end
 	end
 
@@ -106,9 +124,12 @@ function jogador_draw()
 	if jogador.topo.estado == "mirando" then
 		love.graphics.draw(jogador.topo.mira, jogador.x+jogador.base.largura/1.9, 
 			jogador.y+50, jogador.topo.angulo, 1, sx, jogador.topo.largura/2.2, jogador.topo.altura)
-	else
+	elseif jogador.topo.estado == "atirando" then
 		love.graphics.draw(jogador.topo.tiro, jogador.x+jogador.base.largura/1.9, 
 			jogador.y+50, jogador.topo.angulo, 1, sx, jogador.topo.largura/2.2, jogador.topo.altura)
+	else
+		love.graphics.draw(jogador.topo.carga, jogador.x+jogador.base.largura/2, 
+			jogador.y+45, 0, 1, sx, jogador.topo.largura/2.2, jogador.topo.altura)
 	end
 
 	for i, flechaJogador in ipairs(flechasJogador) do

@@ -1,23 +1,23 @@
 function fimDeJogo_load()
-	fundo = {}
-	fundo.imagem = love.graphics.newImage("assets/imagem_fim.jpg")
-	fundo.largura = fundo.imagem:getWidth()
-	fundo.altura = fundo.imagem:getHeight()
-	fundo.x =  0
-	fundo.y = 0
+	fundoFim = {}
+	fundoFim.imagem = love.graphics.newImage("assets/imagem_fim.jpg")
+	fundoFim.largura = fundoFim.imagem:getWidth()
+	fundoFim.altura = fundoFim.imagem:getHeight()
+	fundoFim.x =  0
+	fundoFim.y = 0
 
-	pergaminho = {}
-	pergaminho.imagem = love.graphics.newImage("assets/pergaminho.png")
-	pergaminho.largura = pergaminho.imagem:getWidth()
-	pergaminho.altura = pergaminho.imagem:getHeight()
-	pergaminho.x =  0 + (tela_largura - pergaminho.largura) / 2
-	pergaminho.y = 0
+	pergaminhoFim = {}
+	pergaminhoFim.imagem = love.graphics.newImage("assets/pergaminho_fim.png")
+	pergaminhoFim.largura = pergaminhoFim.imagem:getWidth()
+	pergaminhoFim.altura = pergaminhoFim.imagem:getHeight()
+	pergaminhoFim.x =  0 + (tela_largura - pergaminhoFim.largura) / 2
+	pergaminhoFim.y = 0
 
 	fonteFimMaior = love.graphics.newFont("assets/fonte.otf", 50)
 	fonteFimMenor = love.graphics.newFont("assets/fonte.otf", 25)
 
-	mensagem = {}
-	mensagem.texto = "Os Seljúcidas lutaram bravamente contra as forças ".. 
+	mensagemFim = {}
+	mensagemFim.texto = "Os Seljúcidas lutaram bravamente contra as forças ".. 
 					"\n"..
 					"cruzadas, mas as disputas internas dos "..
 					"\n"..
@@ -34,8 +34,8 @@ function fimDeJogo_load()
 					"os caminhos da humanidade."..
 					"\n"..
 					"Pressione ESC para ir ao menu."
-		mensagem.x = pergaminho.x + 60
-		mensagem.y = pergaminho.y + 140
+		mensagemFim.x = pergaminhoFim.x + 60
+		mensagemFim.y = pergaminhoFim.y + 140
 end
 
 function fimDeJogo_update()
@@ -43,9 +43,9 @@ function fimDeJogo_update()
 end
 
 function fimDeJogo_draw()
-	love.graphics.draw(fundo.imagem, fundo.x, fundo.y)
+	love.graphics.draw(fundoFim.imagem, fundoFim.x, fundoFim.y)
 	
-	love.graphics.draw(pergaminho.imagem, pergaminho.x, pergaminho.y)
+	love.graphics.draw(pergaminhoFim.imagem, pergaminhoFim.x, pergaminhoFim.y)
 	
 	love.graphics.setColor(0, 0, 0)
 
@@ -53,7 +53,7 @@ function fimDeJogo_draw()
 	love.graphics.print("Fim de jogo", 430, 50)
 	
 	love.graphics.setFont(fonteFimMenor)
-	love.graphics.print(mensagem.texto, mensagem.x, mensagem.y)
+	love.graphics.print(mensagemFim.texto, mensagemFim.x, mensagemFim.y)
 
 	love.graphics.reset()
 end

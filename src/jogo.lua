@@ -8,6 +8,8 @@ function jogo_load()
 	mundo_load()
 	jogador_load()
 	inimigo_load()
+
+	fonteJogo = love.graphics.newFont("assets/fonte.otf", 25)
 end
 
 function jogo_update(dt)
@@ -48,23 +50,24 @@ function jogo_draw()
 end
 
 function jogo_detectarFimDeJogo()
-	for i, flechaInimigo in ipairs(flechasInimigas) do
+	if jogador.topo.estado ~= "carga" then
+		for i, flechaInimigo in ipairs(flechasInimigas) do
+			if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
+						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
+						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) or
+				detectarColisao(jogador.hitbox.cavaloCabeca.x, jogador.hitbox.cavaloCabeca.y, 
+						jogador.hitbox.cavaloCabeca.largura, jogador.hitbox.cavaloCabeca.altura,
+						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) or
+				detectarColisao(jogador.hitbox.cavaleiro.x, jogador.hitbox.cavaleiro.y, 
+						jogador.hitbox.cavaleiro.largura, jogador.hitbox.cavaleiro.altura,
+						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) then return true end
+		end
+
+		for i, inimigo in ipairs(inimigos) do
 		if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
-					jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
-					flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) or
-			detectarColisao(jogador.hitbox.cavaloCabeca.x, jogador.hitbox.cavaloCabeca.y, 
-					jogador.hitbox.cavaloCabeca.largura, jogador.hitbox.cavaloCabeca.altura,
-					flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) or
-			detectarColisao(jogador.hitbox.cavaleiro.x, jogador.hitbox.cavaleiro.y, 
-					jogador.hitbox.cavaleiro.largura, jogador.hitbox.cavaleiro.altura,
-					flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) then return true end
+						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
+						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura) then return true end
+		end
 	end
-
-	for i, inimigo in ipairs(inimigos) do
-	if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
-					jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
-					inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura) then return true end
-	end
-
 	return false
 end
