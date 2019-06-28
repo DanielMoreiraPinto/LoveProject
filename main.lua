@@ -1,3 +1,4 @@
+require("lib/recorde")
 require("src/menu")
 require("src/preJogo")
 require("src/jogo")

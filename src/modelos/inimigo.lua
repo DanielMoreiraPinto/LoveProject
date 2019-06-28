@@ -1,6 +1,7 @@
 function inimigo_load()
 	inimigos = {}
 	inimigo_imagem = love.graphics.newImage("assets/inimigo.png")
+	inimigo_imagem_caido = love.graphics.newImage("assets/inimigo_caido.png")
 	inimigo_largura = inimigo_imagem:getWidth()
 	inimigo_altura = inimigo_imagem:getHeight()
 	inimigo_x = tela_largura
@@ -31,7 +32,7 @@ function inimigo_update(dt)
 	
 	if intervaloInimigo <= 0 then
 		intervaloInimigo = love.math.random(60, 255)
-		novoInimigo = {x = inimigo_x, y = inimigo_y, hitbox_x = x, hitbox_y = inimigo_hitbox_y}
+		novoInimigo = {x = inimigo_x, y = inimigo_y, hitbox_x = x, hitbox_y = inimigo_hitbox_y, modo = "guarda"}
 		table.insert(inimigos, novoInimigo)
 	end
 
@@ -61,7 +62,11 @@ end
 
 function inimigo_draw()
 	for i, inimigo in ipairs(inimigos) do
-		love.graphics.draw(inimigo_imagem, inimigo.x, inimigo.y, 0, 1, sx)
+		if inimigo.modo == "guarda" then
+			love.graphics.draw(inimigo_imagem, inimigo.x, inimigo.y, 0, 1, sx)
+		else
+			love.graphics.draw(inimigo_imagem_caido, inimigo.x, inimigo.y, 0, 1, sx)
+		end
 	end
 
 	for i, flechaInimigo in ipairs(flechasInimigas) do

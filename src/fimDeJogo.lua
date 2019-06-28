@@ -36,6 +36,12 @@ function fimDeJogo_load()
 					"Pressione ESC para ir ao menu."
 		mensagemFim.x = pergaminhoFim.x + 60
 		mensagemFim.y = pergaminhoFim.y + 140
+
+	pontuacaoFim = carregarPontuacaoAtual()
+	recordeFim = carregarRecorde()
+	if pontuacaoFim > recordeFim then
+		salvarRecorde(pontuacaoFim)
+	end
 end
 
 function fimDeJogo_update()
@@ -53,7 +59,16 @@ function fimDeJogo_draw()
 	love.graphics.print("Fim de jogo", 430, 50)
 	
 	love.graphics.setFont(fonteFimMenor)
+	love.graphics.print("Sua pontuação: " .. pontuacaoFim, 500, 500)
 	love.graphics.print(mensagemFim.texto, mensagemFim.x, mensagemFim.y)
+	love.graphics.print("Pontuação: " .. pontuacaoFim, 500, 500)
+	if pontuacaoFim > recordeFim then
+		love.graphics.print("NOVO RECORDE!", 500, 800)
+	end
 
 	love.graphics.reset()
+end
+
+function fimDeJogo_informacao()
+	
 end

@@ -4,4 +4,6 @@ function love.conf(t)
 	t.window.width = 1000
 	t.window.height = 500
 	t.window.resizable = false
+	t.author = "Daniel Moreira Pinto"
+	t.identity = t.title
 end

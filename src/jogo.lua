@@ -9,13 +9,18 @@ function jogo_load()
 	jogador_load()
 	inimigo_load()
 
-	fonteJogo = love.graphics.newFont("assets/fonte.otf", 25)
+	textoJogo = {}
+	textoJogo.fonte = love.graphics.newFont("assets/fonte.otf", 25)
+
+	pontuacaoJogo = 0
 end
 
 function jogo_update(dt)
 	mundo_update(dt)
 	jogador_update(dt)
 	inimigo_update(dt)
+
+	pontuacaoJogo = pontuacaoJogo + 2*dt
 
 	if detectarColisao(jogador.x, jogador.y, jogador.base.largura, jogador.base.altura, chao.x1, chao.y, chao.largura, chao.altura) or
 		detectarColisao(jogador.x, jogador.y, jogador.base.largura, jogador.base.altura, chao.x2, chao.y, chao.largura, chao.altura) then
@@ -47,26 +52,43 @@ function jogo_draw()
 	mundo_draw()
 	jogador_draw()
 	inimigo_draw()
+
+	love.graphics.setColor(0, 0, 0)
+	love.graphics.setFont(textoJogo.fonte)
+	love.graphics.print("Pontos: " .. pontuacaoJogo, 500, 500)
+	love.graphics.reset()
 end
 
 function jogo_detectarFimDeJogo()
-	if jogador.topo.estado ~= "carga" then
-		for i, flechaInimigo in ipairs(flechasInimigas) do
-			if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
+	for i, flechaInimigo in ipairs(flechasInimigas) do
+		if (detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
 						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
 						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) or
-				detectarColisao(jogador.hitbox.cavaloCabeca.x, jogador.hitbox.cavaloCabeca.y, 
+			detectarColisao(jogador.hitbox.cavaloCabeca.x, jogador.hitbox.cavaloCabeca.y, 
 						jogador.hitbox.cavaloCabeca.largura, jogador.hitbox.cavaloCabeca.altura,
 						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) or
-				detectarColisao(jogador.hitbox.cavaleiro.x, jogador.hitbox.cavaleiro.y, 
+			detectarColisao(jogador.hitbox.cavaleiro.x, jogador.hitbox.cavaleiro.y, 
 						jogador.hitbox.cavaleiro.largura, jogador.hitbox.cavaleiro.altura,
-						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura) then return true end
+						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura)) and
+						jogador.topo.estado ~= "carga" then
+			salvarPontuacaoAtual(pontuacaoJogo)
+			return true
 		end
+	end
 
-		for i, inimigo in ipairs(inimigos) do
-		if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
+	for i, inimigo in ipairs(inimigos) do
+		if (detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
 						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
-						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura) then return true end
+						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura)) and
+						jogador.topo.estado == "carga" then
+			inimigo.modo = "caido"
+			return false
+		elseif (detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
+						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
+						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura)) and
+						jogador.topo.estado ~= "carga" then 
+			salvarPontuacaoAtual(pontuacaoJogo)
+			return true
 		end
 	end
 	return false
