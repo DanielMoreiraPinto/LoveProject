@@ -20,7 +20,8 @@ function jogo_update(dt)
 	jogador_update(dt)
 	inimigo_update(dt)
 
-	pontuacaoJogo = pontuacaoJogo + 2*dt
+	pontuacaoJogo = pontuacaoJogo + 1
+	salvarPontuacao(pontuacaoJogo)
 
 	if detectarColisao(jogador.x, jogador.y, jogador.base.largura, jogador.base.altura, chao.x1, chao.y, chao.largura, chao.altura) or
 		detectarColisao(jogador.x, jogador.y, jogador.base.largura, jogador.base.altura, chao.x2, chao.y, chao.largura, chao.altura) then
@@ -55,7 +56,7 @@ function jogo_draw()
 
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.setFont(textoJogo.fonte)
-	love.graphics.print("Pontos: " .. pontuacaoJogo, 500, 500)
+	love.graphics.print("Pontos: " .. pontuacaoJogo, 800, 30)
 	love.graphics.reset()
 end
 
@@ -71,7 +72,7 @@ function jogo_detectarFimDeJogo()
 						jogador.hitbox.cavaleiro.largura, jogador.hitbox.cavaleiro.altura,
 						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura)) and
 						jogador.topo.estado ~= "carga" then
-			salvarPontuacaoAtual(pontuacaoJogo)
+			salvarPontuacao(pontuacaoJogo)
 			return true
 		end
 	end
@@ -87,7 +88,7 @@ function jogo_detectarFimDeJogo()
 						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
 						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura)) and
 						jogador.topo.estado ~= "carga" then 
-			salvarPontuacaoAtual(pontuacaoJogo)
+			salvarPontuacao(pontuacaoJogo)
 			return true
 		end
 	end

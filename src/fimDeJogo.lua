@@ -34,18 +34,20 @@ function fimDeJogo_load()
 					"os caminhos da humanidade."..
 					"\n"..
 					"Pressione ESC para ir ao menu."
-		mensagemFim.x = pergaminhoFim.x + 60
-		mensagemFim.y = pergaminhoFim.y + 140
+	mensagemFim.x = pergaminhoFim.x + 60
+	mensagemFim.y = pergaminhoFim.y + 140
 
-	pontuacaoFim = carregarPontuacaoAtual()
+	pontuacaoFim = carregarPontuacao()
 	recordeFim = carregarRecorde()
 	if pontuacaoFim > recordeFim then
 		salvarRecorde(pontuacaoFim)
+		novoRecorde = true
 	end
+
 end
 
 function fimDeJogo_update()
-	
+
 end
 
 function fimDeJogo_draw()
@@ -59,11 +61,10 @@ function fimDeJogo_draw()
 	love.graphics.print("Fim de jogo", 430, 50)
 	
 	love.graphics.setFont(fonteFimMenor)
-	love.graphics.print("Sua pontuação: " .. pontuacaoFim, 500, 500)
+	love.graphics.print("Sua pontuação: " .. pontuacaoFim, 800, 30)
 	love.graphics.print(mensagemFim.texto, mensagemFim.x, mensagemFim.y)
-	love.graphics.print("Pontuação: " .. pontuacaoFim, 500, 500)
-	if pontuacaoFim > recordeFim then
-		love.graphics.print("NOVO RECORDE!", 500, 800)
+	if novoRecorde then
+		love.graphics.print("NOVO RECORDE!", 800, 60)
 	end
 
 	love.graphics.reset()

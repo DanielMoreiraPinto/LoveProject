@@ -6,6 +6,8 @@ require("src/fimDeJogo")
 
 function love.load()
 	tela_largura, tela_altura = love.graphics.getDimensions()
+
+	salvaIniciar()
 	
 	desenvolvimento = false
 	
@@ -61,6 +63,7 @@ function love.update(dt)
 		musicaJogo:seek(0)
 		musicaFim:play()
 		modo = "fimDeJogo"
+		fimDeJogo_load()
 	end
 end
 

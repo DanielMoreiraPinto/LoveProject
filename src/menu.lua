@@ -28,7 +28,7 @@ function menu_draw()
 	love.graphics.setFont(menuTexto.fonteMedia)
 	love.graphics.print("Pressione Enter para jogar \n Pressione Esc para voltar ao menu", 50, 130)
 	love.graphics.setFont(menuTexto.fonteMenor)
-	love.graphics.print("Maior pontuação: " .. recorde, 500, 500)
+	love.graphics.print("Maior pontuação: " .. recorde, 800, 30)
 
 end
 
