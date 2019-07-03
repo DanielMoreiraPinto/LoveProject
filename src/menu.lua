@@ -1,10 +1,10 @@
 function menu_load()
 	menuTexto = {}
-	menuTexto.fonteMaior = love.graphics.newFont("assets/fonte.otf", 100)
-	menuTexto.fonteMedia = love.graphics.newFont("assets/fonte.otf", 50)
-	menuTexto.fonteMenor = love.graphics.newFont("assets/fonte.otf", 25)
+	menuTexto.fonteMaior = love.graphics.newFont("assets/fontes/fonte.otf", 100)
+	menuTexto.fonteMedia = love.graphics.newFont("assets/fontes/fonte.otf", 50)
+	menuTexto.fonteMenor = love.graphics.newFont("assets/fontes/fonte.otf", 25)
 
-	video = love.graphics.newVideo("assets/tema_menu.Ogg", {false})
+	video = love.graphics.newVideo("assets/imagens/tema_menu.Ogg", {false})
 	video:play()
 	video_tempo = 38
 

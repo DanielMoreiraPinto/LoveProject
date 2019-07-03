@@ -10,7 +10,7 @@ function jogo_load()
 	inimigo_load()
 
 	textoJogo = {}
-	textoJogo.fonte = love.graphics.newFont("assets/fonte.otf", 25)
+	textoJogo.fonte = love.graphics.newFont("assets/fontes/fonte.otf", 25)
 
 	pontuacaoJogo = 0
 end
@@ -89,6 +89,7 @@ function jogo_detectarFimDeJogo()
 						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura)) and
 						jogador.topo.estado == "carga" then
 			inimigo.modo = "caido"
+			inimigo_grito:play()
 			return false
 		elseif (detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
 						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,

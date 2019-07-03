@@ -1,7 +1,7 @@
 function inimigo_load()
 	inimigos = {}
-	inimigo_imagem = love.graphics.newImage("assets/inimigo.png")
-	inimigo_imagem_caido = love.graphics.newImage("assets/inimigo_caido.png")
+	inimigo_imagem = love.graphics.newImage("assets/imagens/inimigo.png")
+	inimigo_imagem_caido = love.graphics.newImage("assets/imagens/inimigo_caido.png")
 	inimigo_largura = inimigo_imagem:getWidth()
 	inimigo_altura = inimigo_imagem:getHeight()
 	inimigo_x = tela_largura
@@ -10,9 +10,11 @@ function inimigo_load()
 	inimigo_hitbox_altura = 40*2
 	inimigo_hitbox_y = inimigo_y + 30
 	inimigoVelocidade = velocidadeIlusaoMundo
+	inimigo_grito = love.audio.newSource("assets/audio/som_grito.ogg", "stream")
+	inimigo_grito:setVolume(0.7)
 
 	flechasInimigas = {}
-	flechaInimigo_imagem = love.graphics.newImage("assets/inimigo_flecha.png")
+	flechaInimigo_imagem = love.graphics.newImage("assets/imagens/inimigo_flecha.png")
 	flechaInimigo_largura = flechaInimigo_imagem:getWidth()
 	flechaInimigo_altura = flechaInimigo_imagem:getHeight()
 	flechaInimigo_x = 1000

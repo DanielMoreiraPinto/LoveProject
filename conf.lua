@@ -1,6 +1,6 @@
 function love.conf(t)
 	t.title = "Sarraceno"
-	t.window.icon = "assets/icone.png"
+	t.window.icon = "assets/imagens/icone.png"
 	t.window.width = 1000
 	t.window.height = 500
 	t.window.resizable = false

@@ -1,15 +1,15 @@
 function jogador_load()
 	jogador = {}
 	jogador.base = {}
-		jogador.base.corrida = love.graphics.newImage("assets/jogador/base_corrida.png")
-		jogador.base.pulo = love.graphics.newImage("assets/jogador/base_pulo.png")
+		jogador.base.corrida = love.graphics.newImage("assets/imagens/jogador/base_corrida.png")
+		jogador.base.pulo = love.graphics.newImage("assets/imagens/jogador/base_pulo.png")
 		jogador.base.largura = jogador.base.corrida:getWidth() / 4
 		jogador.base.altura = jogador.base.corrida:getHeight()
 		jogador.base.estado = "correndo"
 	jogador.topo = {}
-		jogador.topo.mira = love.graphics.newImage("assets/jogador/topo_mira.png")
-		jogador.topo.tiro = love.graphics.newImage("assets/jogador/topo_tiro.png")
-		jogador.topo.carga = love.graphics.newImage("assets/jogador/topo_carga.png")
+		jogador.topo.mira = love.graphics.newImage("assets/imagens/jogador/topo_mira.png")
+		jogador.topo.tiro = love.graphics.newImage("assets/imagens/jogador/topo_tiro.png")
+		jogador.topo.carga = love.graphics.newImage("assets/imagens/jogador/topo_carga.png")
 		jogador.topo.largura = jogador.topo.mira:getWidth()
 		jogador.topo.altura = jogador.topo.mira:getHeight()
 		jogador.topo.angulo = 0
@@ -41,13 +41,15 @@ function jogador_load()
 	carregarAnimacao(jogador.base.corrida, jogador.base.largura, jogador.base.altura)
 
 	flechasJogador = {}
-	flechaJogador_imagem = love.graphics.newImage("assets/jogador_flecha.png")
+	flechaJogador_imagem = love.graphics.newImage("assets/imagens/jogador_flecha.png")
 	flechaJogador_largura = flechaJogador_imagem:getWidth() + 30
 	flechaJogador_altura = flechaJogador_imagem:getHeight()
 	flechaJogador_x = jogador.topo.largura/2
 	flechaJogador_y = jogador.topo.altura/4
 	flechaJogador_velocidade = 1500
 	flechaJogador_velocidadeTiro = 60
+	flechaJogador_somTiro = love.audio.newSource("assets/audio/som_tiro.wav", "stream")
+	flechaJogador_somTiro:setVolume(0.7)
 
 	intervaloFlechaJogador = flechaJogador_velocidadeTiro
 end
@@ -87,6 +89,7 @@ function jogador_update(dt)
 		if intervaloFlechaJogador <= 0 then
 			jogador.topo.estado = "mirando"
 			if love.mouse.isDown(1) then
+				flechaJogador_somTiro:play()
 				jogador.topo.estado = "atirando"
 				intervaloFlechaJogador = flechaJogador_velocidadeTiro
 				flechaJogador_x = flechaJogador_x + jogador.x

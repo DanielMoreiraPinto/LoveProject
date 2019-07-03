@@ -1,20 +1,20 @@
 function fimDeJogo_load()
 	fundoFim = {}
-	fundoFim.imagem = love.graphics.newImage("assets/imagem_fim.jpg")
+	fundoFim.imagem = love.graphics.newImage("assets/imagens/imagem_fim.jpg")
 	fundoFim.largura = fundoFim.imagem:getWidth()
 	fundoFim.altura = fundoFim.imagem:getHeight()
 	fundoFim.x =  0
 	fundoFim.y = 0
 
 	pergaminhoFim = {}
-	pergaminhoFim.imagem = love.graphics.newImage("assets/pergaminho_fim.png")
+	pergaminhoFim.imagem = love.graphics.newImage("assets/imagens/pergaminho_fim.png")
 	pergaminhoFim.largura = pergaminhoFim.imagem:getWidth()
 	pergaminhoFim.altura = pergaminhoFim.imagem:getHeight()
 	pergaminhoFim.x =  0 + (tela_largura - pergaminhoFim.largura) / 2
 	pergaminhoFim.y = 0
 
-	fonteFimMaior = love.graphics.newFont("assets/fonte.otf", 50)
-	fonteFimMenor = love.graphics.newFont("assets/fonte.otf", 25)
+	fonteFimMaior = love.graphics.newFont("assets/fontes/fonte.otf", 50)
+	fonteFimMenor = love.graphics.newFont("assets/fontes/fonte.otf", 25)
 
 	mensagemFim = {}
 	mensagemFim.texto = "Os Seljúcidas lutaram bravamente contra as forças ".. 

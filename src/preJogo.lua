@@ -1,19 +1,19 @@
 function preJogo_load()
 	fundoPreJogo = {}
-	fundoPreJogo.imagem = love.graphics.newImage("assets/imagem_preJogo.jpg")
+	fundoPreJogo.imagem = love.graphics.newImage("assets/imagens/imagem_preJogo.jpg")
 	fundoPreJogo.largura = fundoPreJogo.imagem:getWidth()
 	fundoPreJogo.altura = fundoPreJogo.imagem:getHeight()
 	fundoPreJogo.x =  0
 	fundoPreJogo.y = 0
 
 	pergaminhoPreJogo = {}
-	pergaminhoPreJogo.imagem = love.graphics.newImage("assets/pergaminho_preJogo.png")
+	pergaminhoPreJogo.imagem = love.graphics.newImage("assets/imagens/pergaminho_preJogo.png")
 	pergaminhoPreJogo.largura = pergaminhoPreJogo.imagem:getWidth()
 	pergaminhoPreJogo.altura = pergaminhoPreJogo.imagem:getHeight()
 	pergaminhoPreJogo.x =  0 + (tela_largura - pergaminhoPreJogo.largura) / 2
 	pergaminhoPreJogo.y = 0
 
-	fontePreJogo = love.graphics.newFont("assets/fonte.otf", 25)
+	fontePreJogo = love.graphics.newFont("assets/fontes/fonte.otf", 25)
 
 	mensagemPreJogo = {}
 	mensagemPreJogo.texto = "Guerra! Os exércitos cristãos uniram-se e estão marchando ".. 

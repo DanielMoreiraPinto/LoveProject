@@ -2,7 +2,7 @@ function mundo_load()
 	velocidadeIlusaoMundo = 20
 
 	chao = {}
-	chao.imagem = love.graphics.newImage("assets/chao.png")
+	chao.imagem = love.graphics.newImage("assets/imagens/chao.png")
 	chao.largura = chao.imagem:getWidth()
 	chao.altura = chao.imagem:getHeight()
 	chao.x1 = 0
@@ -14,7 +14,7 @@ function mundo_load()
 	chaoAuxiliar2 = chao.imagem
 
 	fundoPerto = {}
-	fundoPerto.imagem = love.graphics.newImage("assets/fundo_perto.png")
+	fundoPerto.imagem = love.graphics.newImage("assets/imagens/fundo_perto.png")
 	fundoPerto.largura = fundoPerto.imagem:getWidth()
 	fundoPerto.altura = fundoPerto.imagem:getHeight()
 	fundoPerto.x1 = 0
@@ -26,7 +26,7 @@ function mundo_load()
 	fundoPertoAuxiliar2 = fundoPerto.imagem
 
 	fundoLonge = {}
-	fundoLonge.imagem = love.graphics.newImage("assets/fundo_longe.png")
+	fundoLonge.imagem = love.graphics.newImage("assets/imagens/fundo_longe.png")
 	fundoLonge.largura = fundoLonge.imagem:getWidth()
 	fundoLonge.altura = fundoLonge.imagem:getHeight()
 	fundoLonge.x1 = 0

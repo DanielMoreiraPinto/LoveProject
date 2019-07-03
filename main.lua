@@ -9,17 +9,17 @@ function love.load()
 
 	salvaIniciar()
 	
-	desenvolvimento = true
+	desenvolvimento = false
 	
 	modo = "menu"
 	
 	reload()
 	
-	musicaMenu = love.audio.newSource("assets/musica_menu.mp3", "stream")
+	musicaMenu = love.audio.newSource("assets/audio/musica_menu.mp3", "stream")
 	musicaMenu:setLooping(true)
-	musicaJogo = love.audio.newSource("assets/musica_jogo.mp3", "stream")
+	musicaJogo = love.audio.newSource("assets/audio/musica_jogo.mp3", "stream")
 	musicaJogo:setLooping(true)
-	musicaFim = love.audio.newSource("assets/musica_fim.mp3", "stream")
+	musicaFim = love.audio.newSource("assets/audio/musica_fim.mp3", "stream")
 	musicaFim:setLooping(true)
 
 	musicaMenu:play()
