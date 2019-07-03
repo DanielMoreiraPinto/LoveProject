@@ -57,6 +57,12 @@ function jogo_draw()
 	love.graphics.setColor(0, 0, 0)
 	love.graphics.setFont(textoJogo.fonte)
 	love.graphics.print("Pontos: " .. pontuacaoJogo, 800, 30)
+
+	if jogador.topo.estado == "carga" then
+		love.graphics.print("Carga: " .. math.ceil(jogador.duracaoCarga), 100, 30)
+	elseif jogador.intervaloCarga <= 0 then
+		love.graphics.print("Pronto para carga!", 100, 30)
+	end
 	love.graphics.reset()
 end
 

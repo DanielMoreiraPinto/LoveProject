@@ -6,4 +6,5 @@ function love.conf(t)
 	t.window.resizable = false
 	t.author = "Daniel Moreira Pinto"
 	t.identity = "Sarraceno"
+	t.version = "11.2"
 end

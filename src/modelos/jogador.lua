@@ -74,7 +74,7 @@ function jogador_update(dt)
 		jogador.duracaoCarga = jogador.duracaoCarga - 1 * dt
 		
 		if jogador.duracaoCarga <= 0 then
-			jogador.intervaloCarga = 5
+			jogador.intervaloCarga = 15
 			jogador.duracaoCarga = 5
 			jogador.topo.estado = "mirando"
 		end

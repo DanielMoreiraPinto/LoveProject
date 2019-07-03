@@ -21,10 +21,8 @@ function inimigo_load()
 	flechaInimigo_gravidade = -20
 	flechaInimigo_velocidade = 20
 
-	--intervaloInimigo = 400
-	--intervaloFlechaInimigo = 800
-	intervaloInimigo = 20
-	intervaloFlechaInimigo = 100
+	intervaloInimigo = 400
+	intervaloFlechaInimigo = 800
 end
 
 function inimigo_update(dt)

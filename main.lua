@@ -9,7 +9,7 @@ function love.load()
 
 	salvaIniciar()
 	
-	desenvolvimento = false
+	desenvolvimento = true
 	
 	modo = "menu"
 	

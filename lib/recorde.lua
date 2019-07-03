@@ -1,5 +1,5 @@
 function salvaIniciar()
-	if not love.filesystem.exists("recorde.txt") then
+	if not love.filesystem.getInfo("recorde.txt") then
 		love.filesystem.write("recorde.txt", 0)
 	end
 	love.filesystem.write("pontuacao.txt", 0)
@@ -10,7 +10,7 @@ function salvarRecorde(recorde)
 end
 
 function carregarRecorde() 
-	if love.filesystem.exists("recorde.txt") then
+	if love.filesystem.getInfo("recorde.txt") then
 		recorde = love.filesystem.read("recorde.txt")
 		return tonumber(recorde)
 	else
@@ -23,7 +23,7 @@ function salvarPontuacao(pontuacao)
 end
 
 function carregarPontuacao()
-	if love.filesystem.exists("pontuacao.txt") then
+	if love.filesystem.getInfo("pontuacao.txt") then
 		pontuacao = love.filesystem.read("pontuacao.txt")
 		return tonumber(pontuacao)
 	else
