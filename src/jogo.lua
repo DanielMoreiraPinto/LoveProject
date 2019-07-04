@@ -84,19 +84,16 @@ function jogo_detectarFimDeJogo()
 	end
 
 	for i, inimigo in ipairs(inimigos) do
-		if (detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
+		if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
 						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
-						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura)) and
-						jogador.topo.estado == "carga" then
-			inimigo.modo = "caido"
-			inimigo_grito:play()
-			return false
-		elseif (detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
-						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
-						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura)) and
-						jogador.topo.estado ~= "carga" then 
-			salvarPontuacao(pontuacaoJogo)
-			return true
+						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura) then
+			if jogador.topo.estado == "carga" then
+				inimigo.modo = "caido"
+				inimigo_grito:play()
+				return false
+			else
+				return true
+			end
 		end
 	end
 	return false

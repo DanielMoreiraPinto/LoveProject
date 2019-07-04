@@ -10,9 +10,6 @@ function mundo_load()
 	chao.x = tela_largura
 	chao.y = 450 
 
-	chaoAuxiliar1 = chao.imagem
-	chaoAuxiliar2 = chao.imagem
-
 	fundoPerto = {}
 	fundoPerto.imagem = love.graphics.newImage("assets/imagens/fundo_perto.png")
 	fundoPerto.largura = fundoPerto.imagem:getWidth()
@@ -33,9 +30,6 @@ function mundo_load()
 	fundoLonge.x2 = fundoLonge.x1 + fundoLonge.largura
 	fundoLonge.x = tela_largura
 	fundoLonge.y = chao.y - fundoLonge.altura
-
-	fundoLongeAuxiliar1 = fundoLonge.imagem
-	fundoLongeAuxiliar2 = fundoLonge.imagem
 end
 
 function mundo_update(dt)
