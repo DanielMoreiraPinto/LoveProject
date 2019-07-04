@@ -5,14 +5,15 @@ require("lib/colisao")
 require("lib/animacao")
 
 function jogo_load()
+	jogo = {}
+	
+	jogo.fonte = love.graphics.newFont("assets/fontes/fonte.otf", 25)
+	
+	jogo.pontuacao = 0
+
 	mundo_load()
 	jogador_load()
 	inimigo_load()
-
-	textoJogo = {}
-	textoJogo.fonte = love.graphics.newFont("assets/fontes/fonte.otf", 25)
-
-	pontuacaoJogo = 0
 end
 
 function jogo_update(dt)
@@ -20,8 +21,8 @@ function jogo_update(dt)
 	jogador_update(dt)
 	inimigo_update(dt)
 
-	pontuacaoJogo = pontuacaoJogo + 1
-	salvarPontuacao(pontuacaoJogo)
+	jogo.pontuacao = jogo.pontuacao + 1
+	salvarPontuacao(jogo.pontuacao)
 
 	if detectarColisao(jogador.x, jogador.y, jogador.base.largura, jogador.base.altura, chao.x1, chao.y, chao.largura, chao.altura) or
 		detectarColisao(jogador.x, jogador.y, jogador.base.largura, jogador.base.altura, chao.x2, chao.y, chao.largura, chao.altura) then
@@ -55,8 +56,8 @@ function jogo_draw()
 	inimigo_draw()
 
 	love.graphics.setColor(0, 0, 0)
-	love.graphics.setFont(textoJogo.fonte)
-	love.graphics.print("Pontos: " .. pontuacaoJogo, 800, 30)
+	love.graphics.setFont(jogo.fonte)
+	love.graphics.print("Pontos: " .. jogo.pontuacao, 800, 30)
 
 	if jogador.topo.estado == "carga" then
 		love.graphics.print("Carga: " .. math.ceil(jogador.duracaoCarga), 100, 30)
@@ -78,21 +79,24 @@ function jogo_detectarFimDeJogo()
 						jogador.hitbox.cavaleiro.largura, jogador.hitbox.cavaleiro.altura,
 						flechaInimigo.x, flechaInimigo.y, flechaInimigo_largura, flechaInimigo_altura)) and
 						jogador.topo.estado ~= "carga" then
-			salvarPontuacao(pontuacaoJogo)
+			salvarPontuacao(jogo.pontuacao)
 			return true
 		end
 	end
 
 	for i, inimigo in ipairs(inimigos) do
-		if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
-						jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
-						inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura) then
-			if jogador.topo.estado == "carga" then
-				inimigo.modo = "caido"
-				inimigo_grito:play()
-				return false
-			else
-				return true
+		if inimigo.hitbox_x then
+			if detectarColisao(jogador.hitbox.cavaloCorpo.x, jogador.hitbox.cavaloCorpo.y, 
+							jogador.hitbox.cavaloCorpo.largura, jogador.hitbox.cavaloCorpo.altura,
+							inimigo.hitbox_x, inimigo.hitbox_y, inimigo_hitbox_largura, inimigo_hitbox_altura) then
+				if jogador.topo.estado == "carga" then
+					inimigo.modo = "caido"
+					inimigo_grito:play()
+					return false
+				else
+					salvarPontuacao(jogo.pontuacao)
+					return true
+				end
 			end
 		end
 	end

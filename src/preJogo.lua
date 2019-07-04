@@ -1,22 +1,24 @@
 function preJogo_load()
-	fundoPreJogo = {}
-	fundoPreJogo.imagem = love.graphics.newImage("assets/imagens/imagem_preJogo.jpg")
-	fundoPreJogo.largura = fundoPreJogo.imagem:getWidth()
-	fundoPreJogo.altura = fundoPreJogo.imagem:getHeight()
-	fundoPreJogo.x =  0
-	fundoPreJogo.y = 0
+	preJogo = {}
+	
+	preJogo.fundo = {}
+	preJogo.fundo.imagem = love.graphics.newImage("assets/imagens/imagem_preJogo.jpg")
+	preJogo.fundo.largura = preJogo.fundo.imagem:getWidth()
+	preJogo.fundo.altura = preJogo.fundo.imagem:getHeight()
+	preJogo.fundo.x =  0
+	preJogo.fundo.y = 0
 
-	pergaminhoPreJogo = {}
-	pergaminhoPreJogo.imagem = love.graphics.newImage("assets/imagens/pergaminho_preJogo.png")
-	pergaminhoPreJogo.largura = pergaminhoPreJogo.imagem:getWidth()
-	pergaminhoPreJogo.altura = pergaminhoPreJogo.imagem:getHeight()
-	pergaminhoPreJogo.x =  0 + (tela_largura - pergaminhoPreJogo.largura) / 2
-	pergaminhoPreJogo.y = 0
+	preJogo.pergaminho = {}
+	preJogo.pergaminho.imagem = love.graphics.newImage("assets/imagens/pergaminho_preJogo.png")
+	preJogo.pergaminho.largura = preJogo.pergaminho.imagem:getWidth()
+	preJogo.pergaminho.altura = preJogo.pergaminho.imagem:getHeight()
+	preJogo.pergaminho.x =  0 + (tela_largura - preJogo.pergaminho.largura) / 2
+	preJogo.pergaminho.y = 0
 
-	fontePreJogo = love.graphics.newFont("assets/fontes/fonte.otf", 25)
+	preJogo.fonte = love.graphics.newFont("assets/fontes/fonte.otf", 25)
 
-	mensagemPreJogo = {}
-	mensagemPreJogo.texto = "Guerra! Os exércitos cristãos uniram-se e estão marchando ".. 
+	preJogo.mensagem = {}
+	preJogo.mensagem.texto = "Guerra! Os exércitos cristãos uniram-se e estão marchando ".. 
 					"\n"..
 					"em direção a Jerusalém, a cidade sagrada. É a Primeira Cruzada. "..
 					"\n"..
@@ -33,8 +35,8 @@ function preJogo_load()
 					"Clique com o botão esquerdo do mouse para jogar."..
 					"\n"..
 					"Espaço: pular    Botão esquerdo do mouse: atirar   X: carga"
-		mensagemPreJogo.x = pergaminhoPreJogo.x + 65
-		mensagemPreJogo.y = pergaminhoPreJogo.y + 140
+		preJogo.mensagem.x = preJogo.pergaminho.x + 65
+		preJogo.mensagem.y = preJogo.pergaminho.y + 140
 end
 
 function preJogo_update()
@@ -42,14 +44,14 @@ function preJogo_update()
 end
 
 function preJogo_draw()
-	love.graphics.draw(fundoPreJogo.imagem, fundoPreJogo.x, fundoPreJogo.y)
+	love.graphics.draw(preJogo.fundo.imagem, preJogo.fundo.x, preJogo.fundo.y)
 	
-	love.graphics.draw(pergaminhoPreJogo.imagem, pergaminhoPreJogo.x, pergaminhoPreJogo.y)
+	love.graphics.draw(preJogo.pergaminho.imagem, preJogo.pergaminho.x, preJogo.pergaminho.y)
 	
 	love.graphics.setColor(0, 0, 0)
 	
-	love.graphics.setFont(fontePreJogo)
-	love.graphics.print(mensagemPreJogo.texto, mensagemPreJogo.x, mensagemPreJogo.y)
+	love.graphics.setFont(preJogo.fonte)
+	love.graphics.print(preJogo.mensagem.texto, preJogo.mensagem.x, preJogo.mensagem.y)
 
 	love.graphics.reset()
 end

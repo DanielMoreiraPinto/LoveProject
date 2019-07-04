@@ -1,23 +1,25 @@
 function fimDeJogo_load()
-	fundoFim = {}
-	fundoFim.imagem = love.graphics.newImage("assets/imagens/imagem_fim.jpg")
-	fundoFim.largura = fundoFim.imagem:getWidth()
-	fundoFim.altura = fundoFim.imagem:getHeight()
-	fundoFim.x =  0
-	fundoFim.y = 0
+	fimDeJogo = {}
 
-	pergaminhoFim = {}
-	pergaminhoFim.imagem = love.graphics.newImage("assets/imagens/pergaminho_fim.png")
-	pergaminhoFim.largura = pergaminhoFim.imagem:getWidth()
-	pergaminhoFim.altura = pergaminhoFim.imagem:getHeight()
-	pergaminhoFim.x =  0 + (tela_largura - pergaminhoFim.largura) / 2
-	pergaminhoFim.y = 0
+	fimDeJogo.fundo = {}
+	fimDeJogo.fundo.imagem = love.graphics.newImage("assets/imagens/imagem_fim.jpg")
+	fimDeJogo.fundo.largura = fimDeJogo.fundo.imagem:getWidth()
+	fimDeJogo.fundo.altura = fimDeJogo.fundo.imagem:getHeight()
+	fimDeJogo.fundo.x =  0
+	fimDeJogo.fundo.y = 0
 
-	fonteFimMaior = love.graphics.newFont("assets/fontes/fonte.otf", 50)
-	fonteFimMenor = love.graphics.newFont("assets/fontes/fonte.otf", 25)
+	fimDeJogo.pergaminho = {}
+	fimDeJogo.pergaminho.imagem = love.graphics.newImage("assets/imagens/pergaminho_fim.png")
+	fimDeJogo.pergaminho.largura = fimDeJogo.pergaminho.imagem:getWidth()
+	fimDeJogo.pergaminho.altura = fimDeJogo.pergaminho.imagem:getHeight()
+	fimDeJogo.pergaminho.x =  0 + (tela_largura - fimDeJogo.pergaminho.largura) / 2
+	fimDeJogo.pergaminho.y = 0
 
-	mensagemFim = {}
-	mensagemFim.texto = "Os Seljúcidas lutaram bravamente contra as forças ".. 
+	fimDeJogo.fonteMaior = love.graphics.newFont("assets/fontes/fonte.otf", 50)
+	fimDeJogo.fonteMenor = love.graphics.newFont("assets/fontes/fonte.otf", 25)
+
+	fimDeJogo.mensagem = {}
+	fimDeJogo.mensagem.texto = "Os Seljúcidas lutaram bravamente contra as forças ".. 
 					"\n"..
 					"cruzadas, mas as disputas internas dos "..
 					"\n"..
@@ -34,16 +36,17 @@ function fimDeJogo_load()
 					"os caminhos da humanidade."..
 					"\n"..
 					"Pressione ESC para ir ao menu."
-	mensagemFim.x = pergaminhoFim.x + 60
-	mensagemFim.y = pergaminhoFim.y + 140
+	fimDeJogo.mensagem.x = fimDeJogo.pergaminho.x + 60
+	fimDeJogo.mensagem.y = fimDeJogo.pergaminho.y + 140
 
-	pontuacaoFim = carregarPontuacao()
-	recordeFim = carregarRecorde()
-	if pontuacaoFim > recordeFim then
-		salvarRecorde(pontuacaoFim)
+	fimDeJogo.pontuacao = carregarPontuacao()
+	
+	fimDeJogo.recorde = carregarRecorde()
+
+	if fimDeJogo.pontuacao > fimDeJogo.recorde then
+		salvarRecorde(fimDeJogo.pontuacao)
 		novoRecorde = true
 	end
-
 end
 
 function fimDeJogo_update()
@@ -51,18 +54,18 @@ function fimDeJogo_update()
 end
 
 function fimDeJogo_draw()
-	love.graphics.draw(fundoFim.imagem, fundoFim.x, fundoFim.y)
+	love.graphics.draw(fimDeJogo.fundo.imagem, fimDeJogo.fundo.x, fimDeJogo.fundo.y)
 	
-	love.graphics.draw(pergaminhoFim.imagem, pergaminhoFim.x, pergaminhoFim.y)
+	love.graphics.draw(fimDeJogo.pergaminho.imagem, fimDeJogo.pergaminho.x, fimDeJogo.pergaminho.y)
 	
 	love.graphics.setColor(0, 0, 0)
 
-	love.graphics.setFont(fonteFimMaior)
+	love.graphics.setFont(fimDeJogo.fonteMaior)
 	love.graphics.print("Fim de jogo", 430, 50)
 	
-	love.graphics.setFont(fonteFimMenor)
-	love.graphics.print("Sua pontuação: " .. pontuacaoFim, 800, 30)
-	love.graphics.print(mensagemFim.texto, mensagemFim.x, mensagemFim.y)
+	love.graphics.setFont(fimDeJogo.fonteMenor)
+	love.graphics.print("Sua pontuação: " .. fimDeJogo.pontuacao, 800, 30)
+	love.graphics.print(fimDeJogo.mensagem.texto, fimDeJogo.mensagem.x, fimDeJogo.mensagem.y)
 	if novoRecorde then
 		love.graphics.print("NOVO RECORDE!", 800, 60)
 	end
